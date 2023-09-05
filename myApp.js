@@ -1,6 +1,6 @@
 let express = require('express');
 let app = express();
-
+require('dotenv').config()
 //1
 // app.get('/',(req,res)=>{
 //   res.send('Hello World')
