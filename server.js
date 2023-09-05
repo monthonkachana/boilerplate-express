@@ -20,15 +20,7 @@ if (!process.env.DISABLE_XORIGIN) {
     next();
   });
 }
-//1
-// app.get('/',(req,res)=>{
-//   res.send('Hello World')
-// })
-//2 get http file html
-app.get("/", function (req, res) {
-  res.sendFile(__dirname + "/views/index.html");
-});
-//3
+
 
 const port = process.env.PORT || 3000;
 bGround.setupBackgroundApp(app, myApp, __dirname).listen(port, () => {
