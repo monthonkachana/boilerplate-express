@@ -2,40 +2,34 @@ let express = require('express');
 let app = express();
 require('dotenv').config()
 //1
+//console.log('Hello World')
+//2
 // app.get('/',(req,res)=>{
 //   res.send('Hello World')
 // })
-//2 get http file html
+//3 get http file html
 app.get("/", function (req, res) {
     res.sendFile(__dirname + "/views/index.html");
 });
-//3 asste file public
-// Normal usage
-// app.use(express.static(__dirname + "/public"));
-// Assets at the /public route
+//4 asste file public open Assets at the /public route
 app.use("/public", express.static(__dirname + "/public"));
-//4 get file json serve  message 
-// app.get('/json', (req, res) => {
-//     res.json({ "message": "Hello json" })
-// })
-//5 .env file get path 
+//7 Root level logger middleware  ตัวจัดการความผิดพลาด สื่อสาร ระหว่าง อาร์กิวเม้น **check route
+app.use("/", (req, res, next) => {
+    console.log(`${req.method} ${req.path} ${req.ip} `)
+    next();
+})
+//5 get file json serve  message 
 app.get('/json', (req, res) => {
-    const messageStyle = process.env.MESSAGE_STYLE;
-    let message = "Hello json";
-    if (messageStyle === 'uppercase') {
-        message = message.toUpperCase();
+    res.json({ "message": "Hello json" })
+})
+//6 .env file get path 
+app.get('/json', (req, res) => {
+    if (process.env["MESSAGE_STYLE"] == "uppercase") {
+        res.json({ "message": "HELLO JSON" })
+    } else {
+        res.json({ "message": "Hello json" })
     }
-    res.json({ message });
-});
-
-
-
-
-
-
-
-
-
+})
 
 
 
