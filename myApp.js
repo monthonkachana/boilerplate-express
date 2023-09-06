@@ -1,6 +1,10 @@
 let express = require('express');
 let app = express();
+var bodyParser = require("body-parser");
 require('dotenv').config()
+//11 use body-parser to post req
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 //1
 //console.log('Hello World')
 //2
@@ -60,8 +64,14 @@ app.get('/name', (req, res) => {
         name: `${firstName} ${lastName}`
     })
 })
+//12 get data จากข้อ10 post req
+app.post(('/name'), (req, res) => {
+
+    var string = req.body.first + " " + req.body.last;
 
 
+    res.json({ name: string })
+})
 
 
 
